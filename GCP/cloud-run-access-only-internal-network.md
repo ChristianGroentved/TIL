@@ -37,7 +37,7 @@ gcloud compute backend-services create hello-world-backend-service \
   --region=europe-west4 \
   --project=es-prod-6c2a
 
-gcloud compute backend-services add-backend tagging-service-backend-service \
+gcloud compute backend-services add-backend hello-world-backend-service \
   --network-endpoint-group=hello-world-serverless-neg \
   --network-endpoint-group-region=europe-west4 \
   --project=es-prod-6c2a
@@ -50,12 +50,12 @@ Now we will configure the rest of the Internal HTTP(S) Load Balancer components
 ```shell
 gcloud compute url-maps create hello-world-url-map \
   --default-service hello-world-backend-service \
-  --region=us-central1 \
+  --region=europe-west4 \
   --project=es-prod-6c2a
 
 gcloud compute target-http-proxies create hello-world-http-proxy \
   --url-map=hello-world-url-map \
-  --region=us-central1 \
+  --region=europe-west4 \
   --project=es-prod-6c2a
 
 
