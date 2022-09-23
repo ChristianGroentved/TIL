@@ -15,7 +15,7 @@ gcloud compute networks subnets create proxy-only-subnet-es-prod \
   --role=ACTIVE \
   --region=europe-west4 \
   --network=projects/network-host-project-5361/global/networks/network-host-project-high-trusted-zone-shared-vpc \
-  --range=10.235.142.0/26 \
+  --range=10.235.142.0/26 \ # The range needs to be reserved
   --project=network-host-project-5361
 ```
 The proxy won't be assigned anywhere it just needs to be there.
@@ -39,7 +39,7 @@ gcloud compute backend-services create hello-world-backend-service \
 
 gcloud compute backend-services add-backend tagging-service-backend-service \
   --network-endpoint-group=hello-world-serverless-neg \
-  --network-endpoint-group-region=europe-west1 \
+  --network-endpoint-group-region=europe-west4 \
   --project=es-prod-6c2a
 ```
 
