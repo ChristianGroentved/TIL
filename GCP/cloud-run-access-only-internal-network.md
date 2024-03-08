@@ -1,13 +1,12 @@
-# Access Cloud Run Service only when connected to internal network
+# Access Cloud Run Service only when connected to the internal network
 
-At the time of writing basically everything needs to be in the same region.
+At the time of writing everything needs to be in the same region.
 
 ## Assumptions
 - Use a shared VPC
-- A subnet for the project has been setup
+- A subnet for the project has been set
 
-
-In order to connect properly you need a **proxy-only subnet** which can be used for all internal load balancers in a given region
+To connect properly you need a **proxy-only subnet** that can be used for all internal load balancers in a given region
 
 ```shell
 gcloud compute networks subnets create proxy-only-subnet-es-prod \
@@ -20,7 +19,7 @@ gcloud compute networks subnets create proxy-only-subnet-es-prod \
 ```
 The proxy won't be assigned anywhere it just needs to be there.
 
-Next we need to create a Serverless Network Endpoint Group (NEG)
+Next, we need to create a Serverless Network Endpoint Group (NEG)
 ```shell
  gcloud compute network-endpoint-groups create hello-world-serverless-neg \
   --region=europe-west4 \
@@ -29,7 +28,7 @@ Next we need to create a Serverless Network Endpoint Group (NEG)
   --project=es-prod-6c2a
 ```
 
-The create a backend service and connect the NEG to it
+The, create a backend service and connect the NEG to it
 ```shell
 gcloud compute backend-services create hello-world-backend-service \
   --load-balancing-scheme INTERNAL_MANAGED \
@@ -43,7 +42,7 @@ gcloud compute backend-services add-backend hello-world-backend-service \
   --project=es-prod-6c2a
 ```
 
-The Backend Service now representes your Cloud Run service to Cloud Load Balancing
+The Backend Service now represents your Cloud Run service to Cloud Load Balancing
 
 Now we will configure the rest of the Internal HTTP(S) Load Balancer components
 
@@ -71,4 +70,4 @@ gcloud compute forwarding-rules create l7-ilb-forwarding-rule \
   --project=es-prod-6c2a
 ```
 
-Assuming you spelled everything correctly things should be up and runnnig 
+Assuming you spelled everything correctly things should be up and running
